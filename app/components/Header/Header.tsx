@@ -6,7 +6,7 @@ import { useHeader } from "./useHeader";
 import { useShop } from "@/app/context/ShopContext";
 import styles from "./Header.module.scss";
 import { useRouter } from "next/navigation";
-
+import logo from "@/app/images/logo.jpg";
 export const Header: React.FC = () => {
   const {
     isScrolled,
@@ -33,7 +33,9 @@ export const Header: React.FC = () => {
       >
         <div className={styles.container}>
           <Link href="/" className={styles.logo}>
-            <span>🏠</span>
+            <span>
+              <img src={logo.src} width={80} height={80} />
+            </span>
             FurniHome
           </Link>
 

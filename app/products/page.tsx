@@ -8,6 +8,7 @@ import { useShop } from "@/app/context/ShopContext";
 import { Product } from "@/app/components/FeaturedProducts/useFeaturedProducts";
 import styles from "./products.module.scss";
 import { useRouter } from "next/navigation";
+import { showSuccess } from "../utils/Toast/toast";
 
 const Products = () => {
   const {
@@ -60,6 +61,7 @@ const Products = () => {
     e.preventDefault();
     e.stopPropagation();
     addToCart(product, 1);
+    showSuccess(`Đã thêm "${product.name}" vào giỏ hàng!`);
   };
 
   return (

@@ -8,6 +8,7 @@ import { useShop } from "@/app/context/ShopContext";
 import styles from "./FeaturedProducts.module.scss";
 import EyedetailIcon from "../icons/eyedetail";
 import StarIcon from "../icons/StarIcon";
+import { showSuccess } from "@/app/utils/Toast/toast";
 
 export const FeaturedProducts: React.FC = () => {
   const {
@@ -19,8 +20,10 @@ export const FeaturedProducts: React.FC = () => {
   } = useFeaturedProducts();
 
   const [isMounted, setIsMounted] = useState(false);
+  React.useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
-  useEffect(() => {}, []);
   const { addToFavorites, removeFromFavorites, isFavorite, addToCart } =
     useShop();
 
@@ -51,32 +54,7 @@ export const FeaturedProducts: React.FC = () => {
     e.preventDefault();
     e.stopPropagation();
     addToCart(product, 1);
-
-    // Hiển thị thông báo thành công (có thể dùng toast library)
-    if (typeof window !== "undefined") {
-      // Tạo một thông báo đơn giản
-      const notification = document.createElement("div");
-      notification.style.cssText = `
-        position: fixed;
-        top: 100px;
-        right: 20px;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        color: white;
-        padding: 1rem 1.5rem;
-        border-radius: 8px;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-        z-index: 9999;
-        animation: slideIn 0.3s ease;
-        font-weight: 500;
-      `;
-      notification.innerHTML = `✓ Đã thêm "${product.name}" vào giỏ hàng!`;
-      document.body.appendChild(notification);
-
-      setTimeout(() => {
-        notification.style.animation = "slideOut 0.3s ease";
-        setTimeout(() => notification.remove(), 300);
-      }, 2000);
-    }
+    showSuccess(`${product.name} đã được thêm vào giỏ hàng!`);
   };
 
   return (
